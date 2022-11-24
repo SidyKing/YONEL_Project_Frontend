@@ -1,0 +1,132 @@
+  <!-- ======= Header ======= -->
+  <app-header></app-header>
+  <!-- End Header -->
+  <!-- ======= Sidebar ======= -->
+  <app-nav [inputFromParent] = "inputText"></app-nav>
+  <!-- End Sidebar-->
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulaire de Transfert D'Argent</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/Transaction">Transaction</a></li>
+        <li class="breadcrumb-item active">Transfert</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card m-5 p-3 ">
+          <div class="card-body">
+            <a routerLink="/Transaction" class="logo d-flex align-items-center">
+              <img src="assets/img/logo.png" alt="">
+              <span class="d-none d-lg-block">Yonel</span>
+            </a>
+            <h5 class="card-title"></h5>
+
+            <!-- General Form Elements -->
+            <form [formGroup]="TransactionForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">CNI client1</label>
+                <div class="col-sm-8">
+                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="client1" placeholder=""
+                        autocomplete="client1" [ngClass]="{
+                          'is-invalid': f['client1'].errors && (f['client1'].dirty || f['client1'].touched)
+                        }" required />
+                        <div *ngIf="f['client1'].errors && (f['client1'].dirty || f['client1'].touched)" class="input-group mb-3 invalid-feedback">
+                          <div *ngIf="f['client1'].errors['required']">
+                            veuillez saisir votre CNI client1
+                          </div>
+                          <div *ngIf="f['client1'].errors['pattern']">
+                             CNI invalide
+                          </div>
+                        </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">pays origine</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">device origine</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Le Montant a envoyé</label>
+                <div class="col-sm-8">
+                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="montant" placeholder=""
+                        autocomplete="montant" [ngClass]="{
+                          'is-invalid': f['montant'].errors && (f['montant'].dirty || f['montant'].touched)
+                        }" required />
+                        <div *ngIf="f['montant'].errors && (f['montant'].dirty || f['montant'].touched)" class="input-group mb-3 invalid-feedback">
+                          <div *ngIf="f['montant'].errors['required']">
+                            veuillez saisir votre CNI client2
+                          </div>
+                          <div *ngIf="f['montant'].errors['pattern']">
+                             CNI invalide
+                          </div>
+                        </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">CNI client2</label>
+                <div class="col-sm-8">
+                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="client2" placeholder=""
+                        autocomplete="client2" [ngClass]="{
+                          'is-invalid': f['client2'].errors && (f['client2'].dirty || f['client2'].touched)
+                        }" required />
+                        <div *ngIf="f['client2'].errors && (f['client2'].dirty || f['client2'].touched)" class="input-group mb-3 invalid-feedback">
+                          <div *ngIf="f['client2'].errors['required']">
+                            veuillez saisir votre CNI client2
+                          </div>
+                          <div *ngIf="f['client2'].errors['pattern']">
+                             CNI invalide
+                          </div>
+                        </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">pays destinateur</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">device destinateur</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+
+
+              <div class="row mb-3">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary ">Soumettre</button>
+                </div>
+              </div>
+
+            </form><!-- End General Form Elements -->
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->
+<app-footer></app-footer>
+<!-- End Footer -->

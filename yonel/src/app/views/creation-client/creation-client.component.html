@@ -1,0 +1,162 @@
+<!-- Navbar-->
+<app-header></app-header>
+
+<app-nav [inputFromParent] = "inputText"></app-nav>
+
+
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulaire de Création Compte</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/CreationClient">Client</a></li>
+        <li class="breadcrumb-item active">Compte</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card m-5 p-3 ">
+          <div class="card-body">
+            <a routerLink="/Transaction" class="logo d-flex align-items-center">
+              <img src="assets/img/logo.png" alt="">
+              <span class="d-none d-lg-block">Yonel</span>
+            </a>
+            <h5 class="card-title"> Creation de Compte Client</h5>
+              <!-- General Form Elements -->
+            <form [formGroup]="ClientForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Prenom</label>
+                <div class="col-sm-8">
+                <input type="text" formControlName="prenom" class="form-control" placeholder="" autocomplete="prenom"
+                [ngClass]="{
+                  'is-invalid': f['prenom'].errors && (f['prenom'].dirty || f['prenom'].touched)
+                }" required  />
+                <div *ngIf=" f['prenom'].errors && (f['prenom'].dirty || f['prenom'].touched)" class="input-group mb-3 invalid-feedback">
+                  <div *ngIf="f['prenom'].errors['required']">
+                    veuillez saisir votre prenom
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Nom</label>
+                <div class="col-sm-8">
+                <input type="text" formControlName="nom" class="form-control" placeholder="" autocomplete="nom"
+                [ngClass]="{
+                  'is-invalid': f['nom'].errors && (f['nom'].dirty || f['nom'].touched)
+                }" required  />
+                <div *ngIf=" f['nom'].errors && (f['nom'].dirty || f['nom'].touched)" class="input-group mb-3 invalid-feedback">
+                  <div *ngIf="f['nom'].errors['required']">
+                    veuillez saisir votre nom
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">CNI ou passeport</label>
+                <div class="col-sm-8">
+                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="cni" placeholder=""
+                    autocomplete="cni" [ngClass]="{
+                      'is-invalid': f['cni'].errors && (f['cni'].dirty || f['cni'].touched)
+                    }" required />
+                    <div *ngIf="f['cni'].errors && (f['cni'].dirty || f['cni'].touched)" class="input-group mb-3 invalid-feedback">
+                      <div *ngIf="f['cni'].errors['required']">
+                        veuillez saisir votre CNI
+                      </div>
+                      <div *ngIf="f['cni'].errors['pattern']">
+                        CNI invalide
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Date de Naissance</label>
+                <div class="col-sm-8">
+                  <input type="date" class="form-control fc-datepicker hasDatepicker"
+                  formControlName="dateNaissance" autocomplete="dateNaissance" [ngClass]="{
+                    'is-invalid': f['dateNaissance'].errors && (f['dateNaissance'].dirty || f['dateNaissance'].touched)
+                  }" required/>
+                  <div *ngIf=" f['dateNaissance'].errors && (f['dateNaissance'].dirty || f['dateNaissance'].touched)" class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['dateNaissance'].errors['required']">
+                      veuillez saisir votre date de Naissance
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Lieux de Naissance</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="lieuNaissance" placeholder=""
+                  autocomplete="lieuNaissance" [ngClass]="{
+                    'is-invalid': f['lieuNaissance'].errors && (f['lieuNaissance'].dirty || f['lieuNaissance'].touched)
+                  }" required />
+                  <div *ngIf=" f['lieuNaissance'].errors && (f['lieuNaissance'].dirty || f['lieuNaissance'].touched)" class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['lieuNaissance'].errors['required']">
+                      veuillez saisir votre lieu de naissance
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                  <input type="email" formControlName="email" class="form-control" placeholder="exemple@email.com"
+                    autocomplete="email" [ngClass]="{
+                      'is-invalid': f['email'].errors && (f['email'].dirty || f['email'].touched)
+                    }" required />
+                  <div *ngIf=" f['email'].errors && (f['email'].dirty || f['email'].touched)" class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">
+                      veuillez saisir votre email
+                    </div>
+                    <div *ngIf="f['email'].errors['email']">
+                      votre email est invalide
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Numéro de Télèphone</label>
+                <div class="col-sm-8">
+                  <div class="d-flex">
+                  <select aria-label="Default select example"  class="form-control col-md-3" style="width:50px;" >
+                    <option selected value="+" >+</option>
+                  </select>&nbsp;
+                  <input type="text" (input)="inputValidator($event)"  formControlName="numTel" class="form-control col-md-9" style="width:445px;" placeholder="0000000"
+                    autocomplete="numTel" [ngClass]="{
+                      'is-invalid': f['numTel'].errors && (f['numTel'].dirty || f['numTel'].touched)
+                    }" required ></div>
+                  <div *ngIf=" f['numTel'] && f['numTel'].errors && (f['numTel'].dirty || f['numTel'].touched)" class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['numTel'].errors['required']">
+                      veuillez saisir votre numero de telephone
+                    </div>
+                    <div *ngIf="f['numTel'].errors['pattern']">
+                      le format du numéro est invalide
+                    </div>
+                  </div>
+                  </div>
+              </div>
+
+
+              <div class="text-center">
+                  <button type="submit" [disabled]="!ClientForm.valid" class="btn btn-primary ">
+                    Soumettre</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="reset" class="btn btn-danger">Annuler</button>
+              </div>
+
+            </form><!-- End General Form Elements -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+</main>
+<!--footer-->
+<app-footer></app-footer>
+<!-- End Footer-->

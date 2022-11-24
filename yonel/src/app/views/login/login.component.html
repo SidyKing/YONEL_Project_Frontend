@@ -8,7 +8,7 @@
           <div class="d-flex justify-content-center py-4">
             <a href="index.html" class="logo d-flex align-items-center w-auto">
               <img src="assets/img/logo.png" alt="">
-              <span class="d-none d-lg-block">NiceAdmin</span>
+              <span class="d-none d-lg-block">Yonel</span>
             </a>
           </div><!-- End Logo -->
 
@@ -21,25 +21,40 @@
                 <p class="text-center small">Entrez votre nom d'utilisateur et votre mot de passe pour vous connecter</p>
               </div>
 
-              <form class="row g-3 needs-validation" novalidate>
+              <form class="row g-3 needs-validation" [formGroup]='loginForm' (ngSubmit)='onSubmit()' novalidate>
 
                 <div class="col-12">
-                  <label for="yourUsername" class="form-label">Nom d'utilisateur</label>
+                  <label for="yourUsername" class="form-label">Email</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">@</span>
-                    <input type="text" name="username" class="form-control" id="yourUsername" required>
-                    <div class="invalid-feedback">Please enter your username.</div>
+                    <input type="email" formControlName="email" class="form-control" placeholder="exemple@email.com"
+												autocomplete="email" [ngClass]="{
+												'is-invalid': f['email'].errors && (f['email'].dirty || f['email'].touched)
+												}" required />
+											<div *ngIf=" f['email'].errors && (f['email'].dirty || f['email'].touched)"
+												class=" input-group mb-3 invalid-feedback">
+												<div *ngIf="f['email'].errors['required']"> veuillez saisir votre email
+												</div>
+												<div *ngIf="f['email'].errors['email']"> votre email est invalide </div>
+											</div>
                   </div>
                 </div>
 
                 <div class="col-12">
                   <label for="yourPassword" class="form-label">Mot de passe</label>
-                  <input type="password" name="password" class="form-control" id="yourPassword" required>
-                  <div class="invalid-feedback">Please enter your password!</div>
+                  <input type="password" id="password1" formControlName="password" class="form-control"
+											placeholder="***********" autocomplete="new-password" [ngClass]="{
+											  'is-invalid': f['password'].errors && (f['password'].dirty || f['password'].touched)
+											}" required />
+										  <div *ngIf=" f['password'].errors && (f['password'].dirty || f['password'].touched)" class="input-group mb-3 invalid-feedback">
+											<div *ngIf="f['password'].errors['required']">
+											  veuillez saisir votre mot de passe
+											</div>
+										</div>
                 </div>
-
+                <p style="color: red;">{{ message }}</p>
                 <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit">Login</button>
+                  <button class="btn btn-primary w-100" [disabled]="!loginForm.valid" type="submit">Login</button>
                 </div>
 
               </form>

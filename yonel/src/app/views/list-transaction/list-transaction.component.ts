@@ -1,22 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import "datatables.net";
 import "datatables.net-dt";
 
 @Component({
-  selector: 'app-accueil',
-  templateUrl: './accueil.component.html',
+  selector: 'app-list-transaction',
+  templateUrl: './list-transaction.component.html',
 })
-export class AccueilComponent implements OnInit {
-  inputText='accueil';
-  balance:any;
-  totalTransaction:any;
+export class ListTransactionComponent implements OnInit{
+  inputText='list-transaction';
 
   ngOnInit(): void {
-    this.balance=326400;
-    this.totalTransaction=45;
     setTimeout(() => {
-      $('#transaction').DataTable({
+      $('#list-transaction').DataTable({
         "language": {
           "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
         },
@@ -26,4 +22,5 @@ export class AccueilComponent implements OnInit {
       });
     }, 1);
   }
+
 }
