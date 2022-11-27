@@ -1,9 +1,10 @@
-  <!-- ======= Header ======= -->
-  <app-header></app-header>
-  <!-- End Header -->
-  <!-- ======= Sidebar ======= -->
-  <app-nav [inputFromParent] = "inputText"></app-nav>
-  <!-- End Sidebar-->
+<!-- ======= Header ======= -->
+<app-header></app-header>
+<!-- End Header -->
+<!-- ======= Sidebar ======= -->
+<app-nav [inputFromParent]="inputText"></app-nav>
+<!-- End Sidebar-->
+
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -26,90 +27,197 @@
               <img src="assets/img/logo.png" alt="">
               <span class="d-none d-lg-block">Yonel</span>
             </a>
-            <h5 class="card-title"></h5>
+            <h5 class="card-title">TRANSACTION</h5>
 
             <!-- General Form Elements -->
-            <form [formGroup]="TransactionForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="TransactionForm" (ngSubmit)="onSubmitTransaction()">
               <div class="row mb-3">
-                <label for="inputText" class="col-sm-4 col-form-label">CNI client1</label>
+                <label for="inputText" class="col-sm-4 col-form-label">Numéro emetteur</label>
                 <div class="col-sm-8">
-                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="client1" placeholder=""
-                        autocomplete="client1" [ngClass]="{
-                          'is-invalid': f['client1'].errors && (f['client1'].dirty || f['client1'].touched)
+                  <div class="d-flex">
+                    <input type="text" readonly class="form-control input1" formControlName="plus" placeholder="+"
+                      style="width:40px;" autocomplete="plus" [ngClass]="{
+                          'is-invalid': f['plus'].errors && (f['plus'].dirty || f['plus'].touched)
                         }" required />
-                        <div *ngIf="f['client1'].errors && (f['client1'].dirty || f['client1'].touched)" class="input-group mb-3 invalid-feedback">
-                          <div *ngIf="f['client1'].errors['required']">
-                            veuillez saisir votre CNI client1
-                          </div>
-                          <div *ngIf="f['client1'].errors['pattern']">
-                             CNI invalide
-                          </div>
-                        </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputText" class="col-sm-4 col-form-label">pays origine</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputText" class="col-sm-4 col-form-label">device origine</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputText" class="col-sm-4 col-form-label">Le Montant a envoyé</label>
-                <div class="col-sm-8">
-                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="montant" placeholder=""
-                        autocomplete="montant" [ngClass]="{
-                          'is-invalid': f['montant'].errors && (f['montant'].dirty || f['montant'].touched)
+                    <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="emetteur"
+                      placeholder="" style="width:'430px;" autocomplete="emetteur" [ngClass]="{
+                          'is-invalid': f['emetteur'].errors && (f['emetteur'].dirty || f['emetteur'].touched)
                         }" required />
-                        <div *ngIf="f['montant'].errors && (f['montant'].dirty || f['montant'].touched)" class="input-group mb-3 invalid-feedback">
-                          <div *ngIf="f['montant'].errors['required']">
-                            veuillez saisir votre CNI client2
-                          </div>
-                          <div *ngIf="f['montant'].errors['pattern']">
-                             CNI invalide
-                          </div>
-                        </div>
+                  </div>
+                  <div *ngIf="f['emetteur'].errors && (f['emetteur'].dirty || f['emetteur'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['emetteur'].errors['required']">
+                      veuillez saisir votre Numéro emetteur
+                    </div>
+                    <div *ngIf="f['emetteur'].errors['pattern']">
+                      Numéro invalide
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="inputText" class="col-sm-4 col-form-label">CNI client2</label>
+                <label for="inputText" class="col-sm-4 col-form-label">pays_origine</label>
                 <div class="col-sm-8">
-                  <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="client2" placeholder=""
-                        autocomplete="client2" [ngClass]="{
-                          'is-invalid': f['client2'].errors && (f['client2'].dirty || f['client2'].touched)
+                  <select aria-label="Default select example" formControlName="pays_origine" class="form-control"
+                    [ngClass]="{
+                                  'is-invalid': f['pays_origine'].errors && (f['pays_origine'].dirty || f['pays_origine'].touched)
+                                }" required>
+                    <option value="" selected disabled>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -- Veuillez selectionner le pays d'origine --
+                    </option>
+                    <ng-container *ngFor="let pays of AllPays">
+                      <option  value="{{ pays.code_iso2 }}">{{ pays.nom}} </option>
+                    </ng-container>
+                  </select>
+                  <div *ngIf=" f['pays_origine'].errors && (f['pays_origine'].dirty || f['pays_origine'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['pays_origine'].errors['required']">
+                      Veuillez choisir un pays d'origine
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">devise origine</label>
+                <div class="col-sm-8">
+                  <select aria-label="Default select example" formControlName="devise_origine" class="form-control"
+                     [ngClass]="{
+                                  'is-invalid': f['devise_origine'].errors && (f['devise_origine'].dirty || f['devise_origine'].touched)
+                                }" required>
+                    <option value="" selected disabled>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -- Veuillez selectionner la devise d'origine --
+                    </option>
+                    <ng-container *ngFor="let devise of AllDevises">
+                      <option  value="{{ devise.code_iso3 }}">{{ devise.nom }} ({{
+                        devise.symbole}})</option>
+                    </ng-container>
+                  </select>
+                  <div *ngIf=" f['devise_origine'].errors && (f['devise_origine'].dirty || f['devise_origine'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['devise_origine'].errors['required']">
+                      Veuillez choisir une devise d'origine
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Frais + montant</label>
+                <div class="col-sm-8">
+                  <div class="d-flex">
+                    <input type="text" (input)="inputValidator($event)" formControlName="frais"
+                       class="form-control col-md-9" style='width:130px;' placeholder="0000000" autocomplete="frais"
+                      [ngClass]="{
+                      'is-invalid': f['frais'].errors && (f['frais'].dirty || f['frais'].touched)
+                    }" required>
+                    &nbsp;&nbsp;
+                    <div>+</div>
+                    &nbsp;&nbsp;
+                    <input type="text" (input)="inputValidator($event)" formControlName="montant"
+                      class="form-control col-md-9" style="width:340px;" placeholder="0000000" autocomplete="montant"
+                      [ngClass]="{
+                      'is-invalid': f['montant'].errors && (f['montant'].dirty || f['montant'].touched)
+                    }" required>
+                  </div>
+                  <div *ngIf=" f['montant'] && f['montant'].errors && (f['montant'].dirty || f['montant'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['montant'].errors['required']">
+                      veuillez saisir votre le montant
+                    </div>
+                    <div *ngIf="f['montant'].errors['pattern']">
+                      le format du montant est invalide
+                    </div>
+                  </div>
+                  <div *ngIf=" f['frais'] && f['frais'].errors && (f['frais'].dirty || f['frais'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['frais'].errors['required']">
+                      veuillez saisir votre le frais
+                    </div>
+                    <div *ngIf="f['frais'].errors['pattern']">
+                      le format du frais est invalide
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Numéro recepteur</label>
+                <div class="col-sm-8">
+                  <div class="d-flex">
+                    <input type="text" readonly class="form-control" formControlName="plus" placeholder="+"
+                      style="width:40px;" autocomplete="plus" [ngClass]="{
+                          'is-invalid': f['plus'].errors && (f['plus'].dirty || f['plus'].touched)
                         }" required />
-                        <div *ngIf="f['client2'].errors && (f['client2'].dirty || f['client2'].touched)" class="input-group mb-3 invalid-feedback">
-                          <div *ngIf="f['client2'].errors['required']">
-                            veuillez saisir votre CNI client2
-                          </div>
-                          <div *ngIf="f['client2'].errors['pattern']">
-                             CNI invalide
-                          </div>
-                        </div>
+                    <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="recepteur"
+                      placeholder="" style="width:'430px;" autocomplete="recepteur" [ngClass]="{
+                          'is-invalid': f['recepteur'].errors && (f['recepteur'].dirty || f['recepteur'].touched)
+                        }" required />
+                  </div>
+                  <div *ngIf="f['recepteur'].errors && (f['recepteur'].dirty || f['recepteur'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['recepteur'].errors['required']">
+                      veuillez saisir votre Numéro recepteur
+                    </div>
+                    <div *ngIf="f['recepteur'].errors['pattern']">
+                      Numéro recepteur invalide
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
                 <label for="inputText" class="col-sm-4 col-form-label">pays destinateur</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control">
+                  <select aria-label="Default select example" formControlName="pays_destination" class="form-control"
+                    [ngClass]="{
+                                  'is-invalid': f['pays_destination'].errors && (f['pays_destination'].dirty || f['pays_destination'].touched)
+                                }" required>
+                    <option value="" selected disabled>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -- Veuillez selectionner le pays destination --
+                    </option>
+                    <ng-container>
+                      <option *ngFor="let pays of AllPays" value="{{ pays.code_iso2 }}">{{ pays.nom }} </option>
+                    </ng-container>
+                  </select>
+                  <div
+                    *ngIf=" f['pays_destination'].errors && (f['pays_destination'].dirty || f['pays_destination'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['pays_destination'].errors['required']">
+                      Veuillez choisir un pays destination
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="inputText" class="col-sm-4 col-form-label">device destinateur</label>
+                <label for="inputText" class="col-sm-4 col-form-label">devise destinateur</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control">
+                  <select aria-label="Default select example" formControlName="devise_destination" class="form-control"
+                    [ngClass]="{
+                    'is-invalid': f['devise_destination'].errors && (f['devise_destination'].dirty || f['devise_destination'].touched)
+                  }" required>
+                    <option value="" selected disabled>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -- Veuillez selectionner la devise destination --
+                    </option>
+                    <ng-container>
+                      <option *ngFor="let devise of AllDevises" value="{{ devise.code_iso3 }}">{{ devise.nom }} ({{
+                        devise.symbole}})</option>
+                    </ng-container>
+                  </select>
+                  <div
+                    *ngIf=" f['devise_destination'].errors && (f['devise_destination'].dirty || f['devise_destination'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['devise_destination'].errors['required']">
+                      Veuillez choisir une devise destination
+                    </div>
+                  </div>
                 </div>
               </div>
 
 
               <div class="row mb-3">
                 <div class="col-sm-10">
-                  <button type="submit" class="btn btn-primary ">Soumettre</button>
+                  <button type="submit" [disabled]="TransactionForm.invalid" class="btn btn-primary ">Soumettre</button>
                 </div>
               </div>
 
@@ -119,10 +227,6 @@
         </div>
 
       </div>
-
-
-
-
     </div>
   </section>
 

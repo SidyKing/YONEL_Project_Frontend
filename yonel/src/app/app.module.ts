@@ -20,6 +20,7 @@ import { ListTransactionComponent } from './views/list-transaction/list-transact
 import { CreationClientComponent } from './views/creation-client/creation-client.component';
 import { ErrorComponent } from './views/error/error.component';
 import { ProfilComponent } from './views/profil/profil.component';
+import { PaiementComponent } from './views/paiement/paiement.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ProfilComponent } from './views/profil/profil.component';
     CreationClientComponent,
     ErrorComponent,
     ProfilComponent,
+    PaiementComponent,
    ],
   imports: [
     SweetAlert2Module.forRoot(),
@@ -53,7 +55,7 @@ import { ProfilComponent } from './views/profil/profil.component';
      // provide: LocationStrategy,
       //useClass: HashLocationStrategy
     //},
-    //DatePipe,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

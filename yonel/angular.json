@@ -16,6 +16,9 @@
             "outputPath": "dist/yonel",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "jquery","sweetalert2"
+           ],
             "polyfills": [
               "zone.js"
             ],

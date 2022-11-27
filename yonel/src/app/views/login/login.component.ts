@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
       this.loginForm = this.formBulder.group({
-        email: ['', [Validators.required, Validators.email]],
+        login: ['', [Validators.required]],
         password: ['', Validators.required]
       })
-      console.log(this.loginForm.value.email)
+      console.log(this.loginForm.value.login)
     }
     get f() { return this.loginForm.controls; }
 
@@ -39,8 +39,9 @@ export class LoginComponent implements OnInit {
       if (this.loginForm.invalid) {
         return;
       } else {
-        this.authService.authenticate(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+        this.authService.authenticate(this.loginForm.value.login, this.loginForm.value.password).subscribe(
           result => {
+              console.log(result)
               this.alert();
               this.router.navigate(['/Accueil']);
           },

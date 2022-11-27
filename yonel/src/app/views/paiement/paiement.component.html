@@ -1,0 +1,117 @@
+<!-- ======= Header ======= -->
+<app-header></app-header>
+<!-- End Header -->
+<!-- ======= Sidebar ======= -->
+<app-nav></app-nav>
+<!-- End Sidebar-->
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulaire de Transfert D'Argent</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/Transaction">Transaction</a></li>
+        <li class="breadcrumb-item active">Transfert</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card m-5 p-3 ">
+
+              <div class="card-body">
+                <a routerLink="/Transaction" class="logo d-flex align-items-center">
+                  <img src="assets/img/logo.png" alt="">
+                  <span class="d-none d-lg-block">Yonel</span>
+                </a>
+                <h5 class="card-title"> PAIEMENT</h5>
+
+                <!-- General Form Elements -->
+                <form [formGroup]="PaiementForm" (ngSubmit)="onSubmitPaiement()">
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-4 col-form-label">Numéro piéce</label>
+                    <div class="col-sm-8">
+
+                        <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="numero_piece"
+                          placeholder="" style="width:'430px;" autocomplete="numero_piece" [ngClass]="{
+                              'is-invalid': f['numero_piece'].errors && (f['numero_piece'].dirty || f['numero_piece'].touched)
+                            }" required />
+
+                      <div *ngIf="f['numero_piece'].errors && (f['numero_piece'].dirty || f['numero_piece'].touched)"
+                        class="input-group mb-3 invalid-feedback">
+                        <div *ngIf="f['numero_piece'].errors['required']">
+                          veuillez saisir votre Numéro piéce
+                        </div>
+                        <div *ngIf="f['numero_piece'].errors['pattern']">
+                          Numéro piéce invalide
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-4 col-form-label">type piéce</label>
+                    <div class="col-sm-8">
+
+                      <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="type_piece"
+                        placeholder="" style="width:'430px;" autocomplete="type_piece" [ngClass]="{
+                            'is-invalid': f['type_piece'].errors && (f['type_piece'].dirty || f['type_piece'].touched)
+                          }" required />
+
+                    <div *ngIf="f['type_piece'].errors && (f['type_piece'].dirty || f['type_piece'].touched)"
+                      class="input-group mb-3 invalid-feedback">
+                      <div *ngIf="f['type_piece'].errors['required']">
+                        veuillez saisir votre type piéce
+                      </div>
+                      <div *ngIf="f['type_piece'].errors['pattern']">
+                        Type piéce invalide
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-4 col-form-label">Nom recepteur</label>
+                    <div class="col-sm-8">
+
+                      <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="nom_recepteur"
+                        placeholder="" style="width:'430px;" autocomplete="nom_recepteur" [ngClass]="{
+                            'is-invalid': f['nom_recepteur'].errors && (f['nom_recepteur'].dirty || f['nom_recepteur'].touched)
+                          }" required />
+
+                    <div *ngIf="f['nom_recepteur'].errors && (f['nom_recepteur'].dirty || f['nom_recepteur'].touched)"
+                      class="input-group mb-3 invalid-feedback">
+                      <div *ngIf="f['nom_recepteur'].errors['required']">
+                        veuillez saisir votre type piéce
+                      </div>
+                      <div *ngIf="f['nom_recepteur'].errors['pattern']">
+                        Type piéce invalide
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-sm-10">
+                      <button type="submit" class="btn btn-primary ">Soumettre</button>
+                    </div>
+                  </div>
+
+                </form><!-- End General Form Elements -->
+
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->
+<app-footer></app-footer>
+<!-- End Footer -->
+
+
+

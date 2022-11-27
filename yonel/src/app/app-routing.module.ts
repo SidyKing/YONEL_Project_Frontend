@@ -5,6 +5,7 @@ import { CreationClientComponent } from './views/creation-client/creation-client
 import { ErrorComponent } from './views/error/error.component';
 import { ListTransactionComponent } from './views/list-transaction/list-transaction.component';
 import { LoginComponent } from './views/login/login.component';
+import { PaiementComponent } from './views/paiement/paiement.component';
 import { ProfilComponent } from './views/profil/profil.component';
 import { TransactionComponent } from './views/transaction/transaction.component';
 
@@ -28,6 +29,13 @@ const routes: Routes = [
     component: TransactionComponent,
     data: {
       title: 'Transaction'
+    }
+  },
+  {
+    path: 'Paiement',
+    component: PaiementComponent,
+    data: {
+      title: 'Paiement'
     }
   },
   {
