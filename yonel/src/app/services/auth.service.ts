@@ -37,18 +37,71 @@ export class AuthService {
   }
 
   transaction(
-    montant:number,
-    date:string,
-    frais:number,
-    statut:string,
-    userId:string,
-    emetteurId:string,
-    recepteurId:string,
-    deviseOrigineCodeIso3:string,
-    deviseDestinationCodeIso3:string,
+    montant:String,
+    date:String,
+    frais:String,
+    statut:String,
+    userId:String,
+    emetteurId:String,
+    recepteurId:String,
+    deviseOrigineCodeIso3:String,
+    deviseDestinationCodeIso3:String,
   ){
     return this.httpClient
       .post<any>(this.apiUrl+'/transaction', {
+        "date":date,
+        "statut":statut,
+        "userId":userId,
+        "emetteurId":emetteurId,
+        "recepteurId":recepteurId,
+        "deviseOrigineCodeIso3":deviseOrigineCodeIso3,
+        "deviseDestinationCodeIso3":deviseDestinationCodeIso3,
+        "montant":montant,
+        "frais":frais,
+       })
+       .pipe(
+        map((userData) => {
+          return userData;
+        })
+        );
+
+  }
+  paidStatut(id:string){
+    return this.httpClient
+      .put<any>(this.apiUrl+'/transaction/'+id, {
+        statut:"Paid",
+      })
+      .pipe(
+        map((userData) => {
+          return userData;
+        })
+      );
+  }
+  CancelledStatut(id:string){
+    return this.httpClient
+      .put<any>(this.apiUrl+'/transaction/'+id, {
+        statut:"Cancelled",
+      })
+      .pipe(
+        map((userData) => {
+          return userData;
+        })
+      );
+  }
+  UpdateTransaction(
+    id:string,
+    montant:String,
+    date:String,
+    frais:String,
+    statut:String,
+    userId:String,
+    emetteurId:String,
+    recepteurId:String,
+    deviseOrigineCodeIso3:String,
+    deviseDestinationCodeIso3:String,
+  ){
+    return this.httpClient
+      .put<any>(this.apiUrl+'/transaction/'+id, {
         "date":date,
         "statut":statut,
         "userId":userId,

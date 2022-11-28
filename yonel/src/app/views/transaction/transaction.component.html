@@ -35,12 +35,12 @@
                 <label for="inputText" class="col-sm-4 col-form-label">Numéro emetteur</label>
                 <div class="col-sm-8">
                   <div class="d-flex">
-                    <input type="text" readonly class="form-control input1" formControlName="plus" placeholder="+"
-                      style="width:40px;" autocomplete="plus" [ngClass]="{
+                    <div class="col-md-1"><input type="text" readonly class="form-control input1" formControlName="plus" placeholder="+"
+                       autocomplete="plus" [ngClass]="{
                           'is-invalid': f['plus'].errors && (f['plus'].dirty || f['plus'].touched)
-                        }" required />
+                        }" required /></div>
                     <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="emetteur"
-                      placeholder="" style="width:'430px;" autocomplete="emetteur" [ngClass]="{
+                      placeholder="" autocomplete="emetteur" [ngClass]="{
                           'is-invalid': f['emetteur'].errors && (f['emetteur'].dirty || f['emetteur'].touched)
                         }" required />
                   </div>
@@ -105,17 +105,17 @@
               <div class="row mb-3">
                 <label for="inputText" class="col-sm-4 col-form-label">Frais + montant</label>
                 <div class="col-sm-8">
-                  <div class="d-flex">
-                    <input type="text" (input)="inputValidator($event)" formControlName="frais"
-                       class="form-control col-md-9" style='width:130px;' placeholder="0000000" autocomplete="frais"
+                  <div class="d-flex col-md-9">
+                   <div class="col-md-3"><input type="text" (input)="inputValidator($event)" formControlName="frais"
+                       class="form-control " placeholder="0000000" autocomplete="frais"
                       [ngClass]="{
                       'is-invalid': f['frais'].errors && (f['frais'].dirty || f['frais'].touched)
-                    }" required>
+                    }" required></div>
                     &nbsp;&nbsp;
                     <div>+</div>
                     &nbsp;&nbsp;
                     <input type="text" (input)="inputValidator($event)" formControlName="montant"
-                      class="form-control col-md-9" style="width:340px;" placeholder="0000000" autocomplete="montant"
+                      class="form-control  " placeholder="0000000" autocomplete="montant"
                       [ngClass]="{
                       'is-invalid': f['montant'].errors && (f['montant'].dirty || f['montant'].touched)
                     }" required>
@@ -144,12 +144,12 @@
                 <label for="inputText" class="col-sm-4 col-form-label">Numéro recepteur</label>
                 <div class="col-sm-8">
                   <div class="d-flex">
-                    <input type="text" readonly class="form-control" formControlName="plus" placeholder="+"
-                      style="width:40px;" autocomplete="plus" [ngClass]="{
+                    <div class="col-md-1"><input type="text" readonly class="form-control" formControlName="plus" placeholder="+"
+                       autocomplete="plus" [ngClass]="{
                           'is-invalid': f['plus'].errors && (f['plus'].dirty || f['plus'].touched)
-                        }" required />
+                        }" required /></div>
                     <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="recepteur"
-                      placeholder="" style="width:'430px;" autocomplete="recepteur" [ngClass]="{
+                      placeholder="" autocomplete="recepteur" [ngClass]="{
                           'is-invalid': f['recepteur'].errors && (f['recepteur'].dirty || f['recepteur'].touched)
                         }" required />
                   </div>

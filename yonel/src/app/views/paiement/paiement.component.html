@@ -37,7 +37,7 @@
                     <div class="col-sm-8">
 
                         <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="numero_piece"
-                          placeholder="" style="width:'430px;" autocomplete="numero_piece" [ngClass]="{
+                          placeholder="" autocomplete="numero_piece" [ngClass]="{
                               'is-invalid': f['numero_piece'].errors && (f['numero_piece'].dirty || f['numero_piece'].touched)
                             }" required />
 
@@ -56,8 +56,8 @@
                     <label for="inputText" class="col-sm-4 col-form-label">type piéce</label>
                     <div class="col-sm-8">
 
-                      <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="type_piece"
-                        placeholder="" style="width:'430px;" autocomplete="type_piece" [ngClass]="{
+                      <input type="text" class="form-control" formControlName="type_piece"
+                        placeholder="" autocomplete="type_piece" [ngClass]="{
                             'is-invalid': f['type_piece'].errors && (f['type_piece'].dirty || f['type_piece'].touched)
                           }" required />
 
@@ -76,20 +76,8 @@
                     <label for="inputText" class="col-sm-4 col-form-label">Nom recepteur</label>
                     <div class="col-sm-8">
 
-                      <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="nom_recepteur"
-                        placeholder="" style="width:'430px;" autocomplete="nom_recepteur" [ngClass]="{
-                            'is-invalid': f['nom_recepteur'].errors && (f['nom_recepteur'].dirty || f['nom_recepteur'].touched)
-                          }" required />
-
-                    <div *ngIf="f['nom_recepteur'].errors && (f['nom_recepteur'].dirty || f['nom_recepteur'].touched)"
-                      class="input-group mb-3 invalid-feedback">
-                      <div *ngIf="f['nom_recepteur'].errors['required']">
-                        veuillez saisir votre type piéce
-                      </div>
-                      <div *ngIf="f['nom_recepteur'].errors['pattern']">
-                        Type piéce invalide
-                      </div>
-                    </div>
+                      <input readonly value="{{prenom}} {{nom}}"  type="text" class="form-control" formControlName="nom_recepteur"
+                        placeholder="{{prenom}} {{nom}}" autocomplete="nom_recepteur" />
                   </div>
                   </div>
 
@@ -112,6 +100,3 @@
 <!-- ======= Footer ======= -->
 <app-footer></app-footer>
 <!-- End Footer -->
-
-
-

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, getPlatform, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { data } from 'jquery';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -16,6 +17,9 @@ export class PaiementComponent implements OnInit {
   idTansaction=sessionStorage.getItem("idTransaction") as string;
   hide = true;
   submitted = false;
+  nom: any;
+  prenom: any;
+  nomComplet: any;
   constructor(
     private formBulder: FormBuilder,
     private route: ActivatedRoute,
@@ -23,14 +27,24 @@ export class PaiementComponent implements OnInit {
     private authService: AuthService,
     private datepipe: DatePipe
   ){
-    this.datePaiement=this.datepipe.transform((new Date), 'dd/MM/yyyy HH:mm:ss a') as string;
+    this.datePaiement=this.datepipe.transform((new Date), 'yyyy-MM-dd HH:mm:ss') as string;
   }
   ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.idTansaction = params['id'];
+        this.nom=params['nom'];
+        this.prenom=params['prenom'];
+        this.nomComplet=this.prenom+" "+this.nom;
+        console.log(this.idTansaction);
+      }
+    );
     this.PaiementForm = this.formBulder.group(
       {
         numero_piece:['',Validators.required,Validators.minLength(10)],
         type_piece:['',Validators.required],
-        nom_recepteur:['',Validators.required]
+        nom_recepteur:['']
       });
   }
   refresh(): void {
@@ -59,7 +73,7 @@ export class PaiementComponent implements OnInit {
         this.datePaiement,
         this.PaiementForm.value.numero_piece,
         this.PaiementForm.value.type_piece,
-        this.PaiementForm.value.nom_recepteur,
+        this.nomComplet,
         this.idTansaction,
       ).subscribe(
         (resultat) => {
@@ -67,6 +81,9 @@ export class PaiementComponent implements OnInit {
           this.PaiementForm.reset();
           sessionStorage.removeItem("idTransaction");
           this.alertGood();
+          this.authService.paidStatut(this.idTansaction).subscribe(data=>{
+            this.router.navigate(['/ListTransaction']);
+          })
         },
         (error) => {
           console.log(error);

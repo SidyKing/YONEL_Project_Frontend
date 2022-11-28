@@ -23,9 +23,13 @@ export class ListTransactionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.authService.getPaiement().subscribe(data => {
-      this.AllPaiement = data;
-      console.log(this.AllPaiement);
+    setTimeout(() => {
+      this.refresh();
+    },30000);
+
+    this.authService.getTransaction().subscribe(data => {
+      this.AllTransaction = data;
+      console.log(this.AllTransaction);
       setTimeout(() => {
         $('#list-transaction').DataTable({
           "language": {
@@ -41,6 +45,13 @@ export class ListTransactionComponent implements OnInit{
   }
   refresh(): void {
     window.location.reload();
+}
+
+cancelled(id:any){
+  this.authService.CancelledStatut(id).subscribe(data => {
+    console.log(data);
+    this.refresh();
+  });
 }
 
 }

@@ -19,7 +19,7 @@ export class TransactionComponent implements OnInit {
   returnUrl!: string;
   AllDevises:any;
   AllPays:any;
-  userId= sessionStorage.getItem("userId") as string;
+  userId :any;
   hide = true;
   idTansaction!:string;
   emetteur:any;
@@ -27,6 +27,7 @@ export class TransactionComponent implements OnInit {
   message!:string;
   emetteurId: any;
   recepteurId: any;
+  donne:any;
 
 
   constructor(
@@ -36,10 +37,11 @@ export class TransactionComponent implements OnInit {
     private authService: AuthService,
     private datepipe: DatePipe
   ) {
-    this.dateTransaction=this.datepipe.transform((new Date), 'dd/MM/yyyy HH:mm:ss ') as string;
+    this.dateTransaction=this.datepipe.transform((new Date), 'yyyy-MM-dd HH:mm:ss') as string;
    }
 
   ngOnInit(): void {
+    this.userId=sessionStorage.getItem("userId");
       this.TransactionForm = this.formBulder.group(
         {
           emetteur:['',Validators.required],
@@ -87,20 +89,20 @@ export class TransactionComponent implements OnInit {
       this.authService.verifEmetteur(this.emetteur).subscribe(
         data => {
           this.client1=data;
-          this.emetteurId=this.client1.id;
           if(this.client1==null){
           this.alertBadEmetteur();
           }
           else{
+            this.emetteurId=this.client1.id;
             this.recepteur= '+'+this.TransactionForm.value.recepteur
             this.authService.verifRecepteur(this.recepteur).subscribe(
               data => {
                 this.client2=data;
-                this.recepteurId=this.client2.id;
                if(this.client2==null){
                     this.alertBadRecepteur();
                  }
                  else{
+                  this.recepteurId=this.client2.id;
                   this.authService.transaction(
                     this.TransactionForm.value.montant,
                     this.dateTransaction,
@@ -113,10 +115,29 @@ export class TransactionComponent implements OnInit {
                     this.TransactionForm.value.devise_destination,
                   ).subscribe(
                     (resultat) => {
-                      sessionStorage.setItem('idTansaction',resultat._id);
+                      sessionStorage.setItem('idTansaction',resultat.id);
+                      this.donne=resultat;
                       this.submitted = false;
                       this.TransactionForm.reset();
                       this.alertGood();
+                      setTimeout(()=>{                           // <<<---using ()=> syntax
+                        this.authService.UpdateTransaction(
+                          this.donne.id,
+                          this.donne.montant,
+                          this.dateTransaction,
+                          this.donne.frais,
+                          "Payable",
+                          this.userId,
+                          this.emetteurId,
+                          this.recepteurId,
+                          this.donne.devise_origine,
+                          this.donne.devise_destination
+                          ).subscribe(
+                            (resultat) => {
+                              console.log(resultat)
+                            }
+                        )
+                    }, 40000);
                     },
                     (error) => {
                       console.log(error);
