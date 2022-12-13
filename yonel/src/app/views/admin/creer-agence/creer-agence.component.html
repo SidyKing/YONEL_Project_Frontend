@@ -1,0 +1,107 @@
+<!-- ======= Header ======= -->
+<app-header></app-header>
+<!-- End Header -->
+<!-- ======= Sidebar ======= -->
+<app-nav [inputFromParent]="inputText"></app-nav>
+<!-- End Sidebar-->
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulaire de Transfert D'Argent</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/Transaction">Transaction</a></li>
+        <li class="breadcrumb-item active">Transfert</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card m-5 p-3 ">
+          <div class="card-body">
+            <a routerLink="/Transaction" class="logo d-flex align-items-center">
+              <img src="assets/img/logo.png" alt="">
+              <span class="d-none d-lg-block">Yonel</span>
+            </a>
+            <h5 class="card-title">Creation de Agence</h5>
+
+            <!-- General Form Elements -->
+            <form [formGroup]="AgenceForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Code</label>
+                <div class="col-sm-8">
+                  <input type="text" formControlName="code" class="form-control" placeholder="" autocomplete="code"
+                    [ngClass]="{
+                  'is-invalid': f['code'].errors && (f['code'].dirty || f['code'].touched)
+                }" required />
+                  <div *ngIf=" f['code'].errors && (f['code'].dirty || f['code'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['code'].errors['required']">
+                      veuillez saisir votre code
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Nom</label>
+                <div class="col-sm-8">
+                  <input type="text" formControlName="nom" class="form-control" placeholder="" autocomplete="nom"
+                    [ngClass]="{
+                  'is-invalid': f['nom'].errors && (f['nom'].dirty || f['nom'].touched)
+                }" required />
+                  <div *ngIf=" f['nom'].errors && (f['nom'].dirty || f['nom'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['nom'].errors['required']">
+                      veuillez saisir votre nom
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">statut</label>
+                <div class="col-sm-8">
+                  <select aria-label="Default select example" formControlName="statut" class="form-control" [ngClass]="{
+                    'is-invalid': f['statut'].errors && (f['statut'].dirty || f['statut'].touched)
+                  }" required>
+                    <option value="" selected disabled>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -- Veuillez selectionner le statut --
+                    </option>
+                    <ng-container>
+                      <option value="actif">actif</option>
+                      <option value="inactif">inactif</option>
+                    </ng-container>
+                  </select>
+                  <div *ngIf=" f['statut'].errors && (f['statut'].dirty || f['statut'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['statut'].errors['required']">
+                      Veuillez choisir un statut
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="text-center">
+                <button type="submit" [disabled]="!AgenceForm.valid" class="btn btn-primary ">
+                  Soumettre</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="reset" class="btn btn-danger">Annuler</button>
+              </div>
+
+            </form><!-- End General Form Elements -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->
+<app-footer></app-footer>
+<!-- End Footer -->

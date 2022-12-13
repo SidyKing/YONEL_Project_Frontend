@@ -66,6 +66,94 @@ export class AuthService {
         );
 
   }
+  CreerClient(
+    nom:String,
+    prenom:String,
+    telephone:String,
+    email:String,
+    date_naissance:Date,
+    lieu_naissance:String,
+  ){
+    return this.httpClient
+      .post<any>(this.apiUrl+'/client', {
+        "nom":nom,
+        "prenom":prenom,
+        "telephone":telephone,
+        "email":email,
+        "date_naissance":date_naissance,
+        "lieu_naissance":lieu_naissance,
+       })
+       .pipe(
+        map((userData) => {
+          return userData;
+        })
+        );
+
+  }
+  CreerUser(
+    login:String,
+    password:String,
+    sousAgence:any,
+    key:String
+  ){
+    return this.httpClient
+      .post<any>(this.apiUrl+'/user/register', {
+        "login":login,
+        "password":password,
+        "sousAgenceCode":sousAgence,
+        "key":key,
+       })
+       .pipe(
+        map((userData) => {
+          return userData;
+        })
+        );
+
+  }
+  CreerSousAgence(
+    code:String,
+    nom:String,
+    adresse:String,
+    telephone:String,
+    email:String,
+    agence:String,
+    ville:String,
+  ){
+    return this.httpClient
+      .post<any>(this.apiUrl+'/sousAgence', {
+        "code":code,
+        "nom":nom,
+        "adresse":adresse,
+        "telephone":telephone,
+        "email":email,
+        "agenceCode":agence,
+        "villeCodeIso2":ville,
+       })
+       .pipe(
+        map((userData) => {
+          return userData;
+        })
+        );
+
+  }
+  CreerAgence(
+    code:String,
+    nom:String,
+    statut:String,
+  ){
+    return this.httpClient
+      .post<any>(this.apiUrl+'/agence', {
+        "code":code,
+        "nom":nom,
+        "statut":statut,
+       })
+       .pipe(
+        map((userData) => {
+          return userData;
+        })
+        );
+
+  }
   paidStatut(id:string){
     return this.httpClient
       .put<any>(this.apiUrl+'/transaction/'+id, {
@@ -77,6 +165,7 @@ export class AuthService {
         })
       );
   }
+
   CancelledStatut(id:string){
     return this.httpClient
       .put<any>(this.apiUrl+'/transaction/'+id, {
@@ -180,8 +269,37 @@ export class AuthService {
         return userData;
       }));
     }
+    verifAgenceSurBalance(
+      agenceCode:string){
+        return this.httpClient
+      .post<any>(this.apiUrl+'/balance/verifAgenceCode', {
+        agenceCode,
+      })
+      .pipe(
+        map((userData) => {
+          return userData;
+        }));
+    }
+    UpdateBalnce(
+      id:string,
+      montant:String,
+    ){
+      return this.httpClient
+        .put<any>(this.apiUrl+'/balance/'+id, {
+          "montant":montant,
+         })
+         .pipe(
+          map((userData) => {
+            return userData;
+          })
+          );
+
+    }
     getUserById(id:string){
       return this.httpClient.get<any>(this.apiUrl+'/user/'+id);
+    }
+    getBalanceByid(id:string){
+      return this.httpClient.get<any>(this.apiUrl+'/balance/'+id);
     }
     getTransactionById(id:string){
       return this.httpClient.get<any>(this.apiUrl+'/transaction/'+id);
@@ -202,6 +320,22 @@ export class AuthService {
     getTransaction(){
       return this.httpClient.get<any>(this.apiUrl+'/transaction/');
     }
+    getUsers(){
+      return this.httpClient.get<any>(this.apiUrl+'/user/');
+    }
+    getSousAgences(){
+      return this.httpClient.get<any>(this.apiUrl+'/sousAgence/');
+    }
+    getVilles(){
+      return this.httpClient.get<any>(this.apiUrl+'/ville/');
+    }
+    getAgences(){
+      return this.httpClient.get<any>(this.apiUrl+'/agence/');
+    }
+    supprimerUser(id:string){
+      return this.httpClient.delete<any>(this.apiUrl+'/user/'+id);
+    }
+
 
 
 }

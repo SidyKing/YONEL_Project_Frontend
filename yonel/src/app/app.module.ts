@@ -21,6 +21,10 @@ import { CreationClientComponent } from './views/creation-client/creation-client
 import { ErrorComponent } from './views/error/error.component';
 import { ProfilComponent } from './views/profil/profil.component';
 import { PaiementComponent } from './views/paiement/paiement.component';
+import { HomeComponent } from './views/admin/home/home.component';
+import { CreerAgenceComponent } from './views/admin/creer-agence/creer-agence.component';
+import { CreerSousAgenceComponent } from './views/admin/creer-sous-agence/creer-sous-agence.component';
+import { CreerUserComponent } from './views/admin/creer-user/creer-user.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,10 @@ import { PaiementComponent } from './views/paiement/paiement.component';
     ErrorComponent,
     ProfilComponent,
     PaiementComponent,
+    HomeComponent,
+    CreerAgenceComponent,
+    CreerSousAgenceComponent,
+    CreerUserComponent,
    ],
   imports: [
     SweetAlert2Module.forRoot(),

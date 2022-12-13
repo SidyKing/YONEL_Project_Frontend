@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './views/accueil/accueil.component';
+import { CreerAgenceComponent } from './views/admin/creer-agence/creer-agence.component';
+import { CreerSousAgenceComponent } from './views/admin/creer-sous-agence/creer-sous-agence.component';
+import { CreerUserComponent } from './views/admin/creer-user/creer-user.component';
+import { HomeComponent } from './views/admin/home/home.component';
 import { CreationClientComponent } from './views/creation-client/creation-client.component';
 import { ErrorComponent } from './views/error/error.component';
 import { ListTransactionComponent } from './views/list-transaction/list-transaction.component';
@@ -66,7 +70,35 @@ const routes: Routes = [
       title:'Profil'
     }
   },
-  { path: '**', component: ErrorComponent }
+  {
+    path:'Home',
+    component: HomeComponent,
+    data:{
+      title:'Home Admin'
+    }
+  },
+  {
+    path:'Creer-agence',
+    component: CreerAgenceComponent,
+    data:{
+      title:'Creer Agence'
+    }
+  },
+  {
+    path:'Creer-sous-agence',
+    component: CreerSousAgenceComponent,
+    data:{
+      title:'Creer sous agence'
+    }
+  },
+  {
+    path:'Creer-user',
+    component: CreerUserComponent,
+    data:{
+      title:'Creer user'
+    }
+  },
+  { path: '**', component: LoginComponent }
 ];
 
 @NgModule({

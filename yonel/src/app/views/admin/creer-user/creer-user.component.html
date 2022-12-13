@@ -1,0 +1,126 @@
+<!-- Navbar-->
+<app-header></app-header>
+
+<app-nav [inputFromParent]="inputText"></app-nav>
+
+
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulaire de Création Compte</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/CreationClient">Client</a></li>
+        <li class="breadcrumb-item active">Compte</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card m-5 p-3 ">
+          <div class="card-body">
+            <a routerLink="/Transaction" class="logo d-flex align-items-center">
+              <img src="assets/img/logo.png" alt="">
+              <span class="d-none d-lg-block">Yonel</span>
+            </a>
+            <h5 class="card-title"> Creation de Compte Utilisateur</h5>
+            <!-- General Form Elements -->
+            <form [formGroup]="UserForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">login</label>
+                <div class="col-sm-8">
+                  <input type="text" formControlName="login" class="form-control" placeholder="" autocomplete="login"
+                    [ngClass]="{
+                  'is-invalid': f['login'].errors && (f['login'].dirty || f['login'].touched)
+                }" required />
+                  <div *ngIf=" f['login'].errors && (f['login'].dirty || f['login'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['login'].errors['required']">
+                      veuillez saisir votre login
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Mot de passe</label>
+                <div class="col-sm-8">
+                  <input type="password" id="password1" formControlName="password" class="form-control"
+                    placeholder="*********" autocomplete="new-password" [ngClass]="{
+                    'is-invalid': f['password'].errors && (f['password'].dirty || f['password'].touched)
+                  }" required />
+                  <div *ngIf=" f['password'].errors && (f['password'].dirty || f['password'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">
+                      veuillez saisir votre mot de passe
+                    </div>
+                    <div *ngIf="f['password'].errors['pattern']">
+                      Le mot de pass doit contenir un chiffre, une majuscule, un minuscule et être supérieur à 8
+                      caractères!
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Confirmer le mot de passe</label>
+                <div class="col-sm-8">
+                  <input type="password" formControlName="confirmPassword" class="form-control" placeholder=""
+                    autocomplete="new-password" [ngClass]="{
+                          'is-invalid': submitted && f['confirmPassword'].errors                          }" required>
+                  <div *ngIf="submitted && f['confirmPassword'].errors" class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['confirmPassword'].errors['required']">
+                      veuillez confirmer votre mot de passe
+                    </div>
+                    <div *ngIf="f['confirmPassword'].errors['mustMatch']">
+                      veuillez saisir des mots de passe identiques
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Sous Agence</label>
+                <div class="col-sm-8">
+                  <select aria-label="Default select example" formControlName="sousAgence" class="form-control"
+                    [ngClass]="{
+                    'is-invalid': f['sousAgence'].errors && (f['sousAgence'].dirty || f['sousAgence'].touched)
+                  }" required>
+                    <option value="" selected disabled>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -- Veuillez selectionner la SousAgence --
+                    </option>
+                    <ng-container>
+                      <option *ngFor="let sousAgence of AllSousAgences" value="{{ sousAgence.code }}">{{ sousAgence.nom }}
+                        ({{
+                        sousAgence.adresse}})</option>
+                    </ng-container>
+                  </select>
+                  <div *ngIf=" f['sousAgence'].errors && (f['sousAgence'].dirty || f['sousAgence'].touched)"
+                    class="input-group mb-3 invalid-feedback">
+                    <div *ngIf="f['sousAgence'].errors['required']">
+                      Veuillez choisir une SousAgence destination
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="text-center">
+                <button type="submit" [disabled]="!UserForm.valid" class="btn btn-primary ">
+                  Soumettre</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="reset" class="btn btn-danger">Annuler</button>
+              </div>
+
+            </form><!-- End General Form Elements -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!--footer-->
+<app-footer></app-footer>
+<!-- End Footer-->

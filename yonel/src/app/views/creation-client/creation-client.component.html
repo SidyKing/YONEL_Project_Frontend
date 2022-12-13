@@ -124,10 +124,9 @@
                 <label for="inputText" class="col-sm-4 col-form-label">Numéro de Télèphone</label>
                 <div class="col-sm-8">
                   <div class="d-flex">
-                  <select aria-label="Default select example"  class="form-control col-md-3" style="width:50px;" >
-                    <option selected value="+" >+</option>
-                  </select>&nbsp;
-                  <input type="text" (input)="inputValidator($event)"  formControlName="numTel" class="form-control col-md-9" style="width:445px;" placeholder="0000000"
+                    <div class="col-md-1"><input type="text" readonly class="form-control input1"  placeholder="+"
+                      autocomplete="plus"/></div>
+                  <input type="text" (input)="inputValidator($event)"  formControlName="numTel" class="form-control" placeholder="0000000"
                     autocomplete="numTel" [ngClass]="{
                       'is-invalid': f['numTel'].errors && (f['numTel'].dirty || f['numTel'].touched)
                     }" required ></div>

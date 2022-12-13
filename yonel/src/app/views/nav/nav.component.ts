@@ -9,7 +9,7 @@ export class NavComponent implements OnInit {
 
 
 
-  accueil="";transaction="";ListTransaction="";CreationClient="";
+  accueil="";transaction="";ListTransaction="";CreationClient="";CreerUser="";CreerAgence="";CreerSousAgence="";Home="";
 
 
   ngOnInit(): void {
@@ -20,6 +20,10 @@ export class NavComponent implements OnInit {
     if (this.inputFromParent!='transaction'){this.transaction="collapsed";}
     if (this.inputFromParent!='list-transaction'){this.ListTransaction="collapsed";}
     if (this.inputFromParent!='creation-client'){this.CreationClient="collapsed";}
+    if (this.inputFromParent!='creer-user'){this.CreerUser="collapsed";}
+    if (this.inputFromParent!='home'){this.Home="collapsed";}
+    if (this.inputFromParent!='creer-agence'){this.CreerAgence="collapsed";}
+    if (this.inputFromParent!='creer-sous-agence'){this.CreerSousAgence="collapsed";}
   }
 }
 
