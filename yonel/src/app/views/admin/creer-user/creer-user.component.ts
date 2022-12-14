@@ -63,7 +63,7 @@ export class CreerUserComponent {
         this.UserForm.value.login,
         this.UserForm.value.password,
         this.UserForm.value.sousAgence,
-        "SESAM OPEN PLEASE"
+        "USER"
         ).subscribe(
           (result): void=>{
           console.log(result);

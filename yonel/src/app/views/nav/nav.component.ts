@@ -6,7 +6,7 @@ import { Component,Input,OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
   @Input() inputFromParent : any;
-
+  profil = sessionStorage.getItem("key");
 
 
   accueil="";transaction="";ListTransaction="";CreationClient="";CreerUser="";CreerAgence="";CreerSousAgence="";Home="";

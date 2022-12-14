@@ -58,11 +58,11 @@ import { CreerUserComponent } from './views/admin/creer-user/creer-user.componen
     FormsModule,
   ],
   providers: [
-    //{provide: HTTP_INTERCEPTORS, useClass : BasicAuthInterceptorService , multi:true},
-    //{
-     // provide: LocationStrategy,
-      //useClass: HashLocationStrategy
-    //},
+    {provide: HTTP_INTERCEPTORS, useClass : BasicAuthInterceptorService , multi:true},
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
     DatePipe,
   ],
   bootstrap: [AppComponent]

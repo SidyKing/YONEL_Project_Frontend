@@ -42,7 +42,7 @@ export class PaiementComponent implements OnInit {
     );
     this.PaiementForm = this.formBulder.group(
       {
-        numero_piece:['',Validators.required,Validators.minLength(10)],
+        numero_piece:['',[Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
         type_piece:['',Validators.required],
         nom_recepteur:['']
       });
@@ -69,6 +69,13 @@ export class PaiementComponent implements OnInit {
       return;
     }
     else {
+      console.log(
+        this.datePaiement,
+        this.PaiementForm.value.numero_piece,
+        this.PaiementForm.value.type_piece,
+        this.nomComplet,
+        this.idTansaction,
+      );
       this.authService.paiement(
         this.datePaiement,
         this.PaiementForm.value.numero_piece,
@@ -82,7 +89,7 @@ export class PaiementComponent implements OnInit {
           sessionStorage.removeItem("idTransaction");
           this.alertGood();
           this.authService.paidStatut(this.idTansaction).subscribe(data=>{
-            this.router.navigate(['/ListTransaction']);
+            this.router.navigate(['/ListeTransaction']);
           })
         },
         (error) => {

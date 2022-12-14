@@ -120,7 +120,8 @@ export class TransactionComponent implements OnInit {
                       this.submitted = false;
                       this.TransactionForm.reset();
                       this.alertGood();
-                      setTimeout(()=>{                           // <<<---using ()=> syntax
+                      this.wait();
+                      setTimeout(()=>{                                     // <<<---using ()=> syntax
                         this.authService.UpdateTransaction(
                           this.donne.id,
                           this.donne.montant,
@@ -135,6 +136,8 @@ export class TransactionComponent implements OnInit {
                           ).subscribe(
                             (resultat) => {
                               console.log(resultat)
+                              this.alertGood();
+                              this.router.navigate(['/ListeTransaction']);
                             }
                         )
                     }, 40000);
@@ -199,5 +202,13 @@ export class TransactionComponent implements OnInit {
       text: "Si vous n'avez pas de compte veuillez le créer"
 
     })
+  }
+  wait(){
+    Swal.fire({
+      icon: 'info',
+      title: 'Traitement en cours!',
+      text: 'Dans 4 secondes la transaction sera payable!  Attention de ne pas l\'interrompre '
+    });
+    Swal.showLoading();
   }
 }

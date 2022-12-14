@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl!: string ;
   message = '';
+  profil:any;
 
   constructor(
     private authService: AuthService,
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
     ngOnInit(): void {
+
       this.loginForm = this.formBulder.group({
         login: ['', [Validators.required]],
         password: ['', Validators.required]
@@ -41,11 +43,20 @@ export class LoginComponent implements OnInit {
       } else {
         this.authService.authenticate(this.loginForm.value.login, this.loginForm.value.password).subscribe(
           result => {
-              console.log(result)
               this.alert();
-              this.router.navigate(['/Accueil']);
+              const tokenInfo = this.authService.getDecodedAccessToken(result.token);
+              if(tokenInfo){
+                  this.profil= tokenInfo.key;
+                if(this.profil=='ADMIN'){
+                  this.router.navigate(['/Home']);
+                }else if(this.profil=='USER'){
+                this.router.navigate(['/Accueil']);
+                }
+              }
+
           },
           error => {
+            this.alertBad();
             console.log(error);
           }
         );
@@ -60,6 +71,13 @@ export class LoginComponent implements OnInit {
         title: 'Login réussi !',
         showConfirmButton: false,
         timer: 1200
+      })
+    }
+    alertBad(){
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur...',
+        text: 'Echec de la connexion ! login ou mot de passe incorrect .',
       })
     }
 }

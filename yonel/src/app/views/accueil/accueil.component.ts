@@ -27,7 +27,6 @@ export class AccueilComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.totalTransaction=45;
     this.userId=sessionStorage.getItem('userId');
 
     this.authService.getUserById(this.userId).subscribe((data: any) => {
@@ -37,7 +36,10 @@ export class AccueilComponent implements OnInit {
       });
     });
 
-
+    this.authService.getTransactionByUserID(this.userId).subscribe((data: any) => {
+      this.totalTransaction = data.length;
+      console.log(data.length)
+    });
 
     this.authService.getTransaction().subscribe((data: any) => {
       this.AllTransaction = data;

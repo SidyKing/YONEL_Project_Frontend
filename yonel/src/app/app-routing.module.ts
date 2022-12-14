@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services/auth.guard';
 import { AccueilComponent } from './views/accueil/accueil.component';
 import { CreerAgenceComponent } from './views/admin/creer-agence/creer-agence.component';
 import { CreerSousAgenceComponent } from './views/admin/creer-sous-agence/creer-sous-agence.component';
@@ -15,6 +16,11 @@ import { TransactionComponent } from './views/transaction/transaction.component'
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
     path: 'login',
     component: LoginComponent,
     data: {
@@ -25,78 +31,100 @@ const routes: Routes = [
     path: 'Accueil',
     component: AccueilComponent,
     data: {
-      title: 'Accueil'
-    }
+      title: 'Accueil',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'Transaction',
     component: TransactionComponent,
     data: {
-      title: 'Transaction'
-    }
+      title: 'Transaction',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'Paiement',
     component: PaiementComponent,
     data: {
-      title: 'Paiement'
-    }
+      title: 'Paiement',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
-    path: 'ListTransaction',
+    path: 'ListeTransaction',
     component: ListTransactionComponent,
     data: {
-      title: 'ListTransaction'
-    }
+      title: 'ListeTransaction',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'CreationClient',
     component: CreationClientComponent,
     data: {
-      title: 'CreationClient'
-    }
+      title: 'CreationClient',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path:'Error',
     component: ErrorComponent,
     data:{
-      title:'Error'
-    }
+      title:'Error',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path:'Profil',
     component: ProfilComponent,
     data:{
-      title:'Profil'
-    }
+      title:'Profil',
+      expectedProfil: 'USER'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path:'Home',
     component: HomeComponent,
     data:{
-      title:'Home Admin'
-    }
+      title:'Home Admin',
+      expectedProfil: 'ADMIN'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path:'Creer-agence',
     component: CreerAgenceComponent,
     data:{
-      title:'Creer Agence'
-    }
+      title:'Creer Agence',
+      expectedProfil: 'ADMIN'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path:'Creer-sous-agence',
     component: CreerSousAgenceComponent,
     data:{
-      title:'Creer sous agence'
-    }
+      title:'Creer sous agence',
+      expectedProfil: 'ADMIN'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path:'Creer-user',
     component: CreerUserComponent,
     data:{
-      title:'Creer user'
-    }
+      title:'Creer user',
+      expectedProfil: 'ADMIN'
+    },
+    canActivate: [AuthGuard]
   },
   { path: '**', component: LoginComponent }
 ];

@@ -208,6 +208,17 @@ export class AuthService {
         );
 
   }
+  getTransactionByUserID(
+    userId:string){
+      return this.httpClient
+    .post<any>(this.apiUrl+'/transaction/userID', {
+      userId,
+    })
+    .pipe(
+      map((userData) => {
+        return userData;
+      }));
+    }
   paiement(
     date:string,
     numero_piece:string,
