@@ -77,9 +77,7 @@ const routes: Routes = [
     component: ErrorComponent,
     data:{
       title:'Error',
-      expectedProfil: 'USER'
-    },
-    canActivate: [AuthGuard]
+    }
   },
   {
     path:'Profil',
