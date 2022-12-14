@@ -23,9 +23,6 @@ export class ListTransactionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.refresh();
-    },30000);
 
     this.authService.getTransaction().subscribe(data => {
       this.AllTransaction = data;

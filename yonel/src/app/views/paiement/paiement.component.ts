@@ -69,13 +69,6 @@ export class PaiementComponent implements OnInit {
       return;
     }
     else {
-      console.log(
-        this.datePaiement,
-        this.PaiementForm.value.numero_piece,
-        this.PaiementForm.value.type_piece,
-        this.nomComplet,
-        this.idTansaction,
-      );
       this.authService.paiement(
         this.datePaiement,
         this.PaiementForm.value.numero_piece,
@@ -85,10 +78,10 @@ export class PaiementComponent implements OnInit {
       ).subscribe(
         (resultat) => {
           this.submitted = false;
-          this.PaiementForm.reset();
-          sessionStorage.removeItem("idTransaction");
           this.alertGood();
           this.authService.paidStatut(this.idTansaction).subscribe(data=>{
+            this.PaiementForm.reset();
+            sessionStorage.removeItem("idTransaction");
             this.router.navigate(['/ListeTransaction']);
           })
         },
@@ -118,7 +111,7 @@ export class PaiementComponent implements OnInit {
   alertGood(){
     Swal.fire({
       icon: 'success',
-      title: 'Transaction Réussie !',
+      title: 'Paiement Réussie !',
       showConfirmButton: false,
       timer: 1200
 
@@ -128,7 +121,7 @@ export class PaiementComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Erreur...',
-      text: 'Echec de la transaction'
+      text: 'Echec du paiement'
     })
   }
 }

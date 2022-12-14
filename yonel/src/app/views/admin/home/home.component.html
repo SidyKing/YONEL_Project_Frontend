@@ -109,16 +109,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let user of AllUsers">
-                    <td>{{user.login}}</td>
-                    <td>{{user.key}}</td>
-                    <td>
-                          <button class="btn btn-success" >Modifier</button>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button (click)="delete(user.id)" class="btn btn-danger" >Supprimer</button>
+                  <ng-container *ngFor="let user of AllUsers" >
+                    <tr *ngIf="user.key==='USER'">
+                      <td>{{user.login}}</td>
+                      <td>{{user.key}}</td>
+                      <td>
+                            <button class="btn btn-success" >Modifier</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button (click)="delete(user.id)" class="btn btn-danger" >Supprimer</button>
 
-                    </td>
-                </tr>
+                      </td>
+                  </tr>
+                  </ng-container>
+
                 </tbody>
                 </table>
               </div>

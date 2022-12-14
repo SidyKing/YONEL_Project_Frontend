@@ -38,7 +38,7 @@ export class AccueilComponent implements OnInit {
 
     this.authService.getTransactionByUserID(this.userId).subscribe((data: any) => {
       this.totalTransaction = data.length;
-      console.log(data.length)
+      console.log(data)
     });
 
     this.authService.getTransaction().subscribe((data: any) => {
