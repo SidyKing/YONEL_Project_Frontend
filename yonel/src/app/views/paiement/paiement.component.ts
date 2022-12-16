@@ -14,12 +14,18 @@ export class PaiementComponent implements OnInit {
   PaiementForm!:FormGroup;
   datePaiement!:string;
   userId= sessionStorage.getItem("userId") as string;
-  idTansaction=sessionStorage.getItem("idTransaction") as string;
+  //idTansaction=sessionStorage.getItem("idTransaction") as string;
   hide = true;
   submitted = false;
   nom: any;
   prenom: any;
   nomComplet: any;
+  codeAgence: any;
+  montantInitial!: any;
+  montantFinal:any;
+  idTansaction: any;
+  idBalance: any;
+  newBalance: any;
   constructor(
     private formBulder: FormBuilder,
     private route: ActivatedRoute,
@@ -30,6 +36,15 @@ export class PaiementComponent implements OnInit {
     this.datePaiement=this.datepipe.transform((new Date), 'yyyy-MM-dd HH:mm:ss') as string;
   }
   ngOnInit(): void {
+
+    this.authService.getUserById(this.userId).subscribe((data)=>{
+      this.codeAgence = data.sous_agence.agence.code;
+      this.authService.getBalanceByAgenceCode(this.codeAgence).subscribe((data)=>{
+        this.montantInitial = data.montant;
+        this.idBalance = data.id;
+      });
+    });
+
     this.route.queryParams
       .subscribe(params => {
         console.log(params);
@@ -40,11 +55,13 @@ export class PaiementComponent implements OnInit {
         console.log(this.idTansaction);
       }
     );
+    this.authService.getTransactionById(this.idTansaction).subscribe((data)=>{
+      this.montantFinal = data.montant;
+    });
     this.PaiementForm = this.formBulder.group(
       {
         numero_piece:['',[Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
-        type_piece:['',Validators.required],
-        nom_recepteur:['']
+        type_piece:['',Validators.required]
       });
   }
   refresh(): void {
@@ -79,9 +96,13 @@ export class PaiementComponent implements OnInit {
         (resultat) => {
           this.submitted = false;
           this.alertGood();
+          this.newBalance = this.montantInitial-this.montantFinal;
           this.authService.paidStatut(this.idTansaction).subscribe(data=>{
+            this.authService.UpdateBalnce(this.idBalance,this.newBalance).subscribe(data=>{
+              console.log(data);
+            })
             this.PaiementForm.reset();
-            sessionStorage.removeItem("idTransaction");
+            // sessionStorage.removeItem("idTransaction");
             this.router.navigate(['/ListeTransaction']);
           })
         },

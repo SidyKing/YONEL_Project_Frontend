@@ -115,7 +115,7 @@ export class TransactionComponent implements OnInit {
                     this.TransactionForm.value.devise_destination,
                   ).subscribe(
                     (resultat) => {
-                      sessionStorage.setItem('idTansaction',resultat.id);
+                      //sessionStorage.setItem('idTansaction',resultat.id);
                       this.donne=resultat;
                       this.submitted = false;
                       this.TransactionForm.reset();
@@ -207,7 +207,7 @@ export class TransactionComponent implements OnInit {
     Swal.fire({
       icon: 'info',
       title: 'Traitement en cours!',
-      text: 'Dans 4 secondes la transaction sera payable!  Attention de ne pas l\'interrompre '
+      text: 'Dans 40 secondes la transaction sera payable!  Attention de ne pas l\'interrompre '
     });
     Swal.showLoading();
   }

@@ -312,6 +312,17 @@ export class AuthService {
     getBalanceByid(id:string){
       return this.httpClient.get<any>(this.apiUrl+'/balance/'+id);
     }
+    getBalanceByAgenceCode(
+      agenceCode:string){
+        return this.httpClient
+      .post<any>(this.apiUrl+'/balance/agenceCode', {
+        agenceCode,
+      })
+      .pipe(
+        map((userData) => {
+          return userData;
+        }));
+      }
     getTransactionById(id:string){
       return this.httpClient.get<any>(this.apiUrl+'/transaction/'+id);
     }
