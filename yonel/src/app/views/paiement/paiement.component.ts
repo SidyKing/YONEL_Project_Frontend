@@ -58,9 +58,10 @@ export class PaiementComponent implements OnInit {
     this.authService.getTransactionById(this.idTansaction).subscribe((data)=>{
       this.montantFinal = data.montant;
     });
+
     this.PaiementForm = this.formBulder.group(
       {
-        numero_piece:['',[Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
+        numero_piece:['',[Validators.required,Validators.minLength(5),Validators.maxLength(15)]],
         type_piece:['',Validators.required]
       });
   }
@@ -86,31 +87,36 @@ export class PaiementComponent implements OnInit {
       return;
     }
     else {
-      this.authService.paiement(
-        this.datePaiement,
-        this.PaiementForm.value.numero_piece,
-        this.PaiementForm.value.type_piece,
-        this.nomComplet,
-        this.idTansaction,
-      ).subscribe(
-        (resultat) => {
-          this.submitted = false;
-          this.alertGood();
-          this.newBalance = this.montantInitial-this.montantFinal;
-          this.authService.paidStatut(this.idTansaction).subscribe(data=>{
-            this.authService.UpdateBalnce(this.idBalance,this.newBalance).subscribe(data=>{
-              console.log(data);
+      this.newBalance = this.montantInitial-this.montantFinal;
+      if(this.newBalance>=0){
+        this.authService.paiement(
+          this.datePaiement,
+          this.PaiementForm.value.numero_piece,
+          this.PaiementForm.value.type_piece,
+          this.nomComplet,
+          this.idTansaction,
+        ).subscribe(
+          (resultat) => {
+            this.submitted = false;
+            this.alertGood();
+            this.authService.paidStatut(this.idTansaction).subscribe(data=>{
+              this.authService.UpdateBalnce(this.idBalance,this.newBalance).subscribe(data=>{
+                console.log(data);
+              })
+              this.PaiementForm.reset();
+              // sessionStorage.removeItem("idTransaction");
+              this.router.navigate(['/ListeTransaction']);
             })
-            this.PaiementForm.reset();
-            // sessionStorage.removeItem("idTransaction");
-            this.router.navigate(['/ListeTransaction']);
-          })
-        },
-        (error) => {
-          console.log(error);
-        this.alertBad();
-        }
-      )
+          },
+          (error) => {
+            console.log(error);
+          this.alertBad();
+          }
+        )
+      }else{
+        this.alertBalance();
+      }
+
     }
   }
   reset(){
@@ -143,6 +149,13 @@ export class PaiementComponent implements OnInit {
       icon: 'error',
       title: 'Erreur...',
       text: 'Echec du paiement'
+    })
+  }
+  alertBalance(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur...',
+      text: 'Le Montant demandé est supérieur à la balance actuel !'
     })
   }
 }

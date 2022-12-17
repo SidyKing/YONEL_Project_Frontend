@@ -17,7 +17,7 @@ import { TransactionComponent } from './views/transaction/transaction.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'Error',
     pathMatch: 'full',
   },
   {
@@ -124,7 +124,7 @@ const routes: Routes = [
     },
     canActivate: [AuthGuard]
   },
-  { path: '**', component: LoginComponent }
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({

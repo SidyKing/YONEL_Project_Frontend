@@ -99,7 +99,7 @@
           <div class="row col-lg-11">
             <div class="card m-5 p-3">
               <div class="card-body">
-                <div align="center"><h5 class="card-title">LISTE DES TRANSACTIONS (finale)</h5> </div>
+                <div align="center"><h5 class="card-title">LISTE DES TRANSACTIONS PAYEES OU ANNULEES</h5> </div>
                 <table class="table table-bordered table-striped table-hover" id="list-transaction-fini">
                   <thead>
                     <tr>
@@ -109,17 +109,22 @@
                         <th> Montant</th>
                         <th>Receptteur</th>
                         <th>Pays Destination</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let transaction of AllTransaction">
-                    <tr *ngIf="transaction.statut=='Paid'" >
+                    <tr *ngIf="transaction.statut=='Paid' || transaction.statut=='Cancelled'" >
                       <td>{{transaction.emetteur.prenom}} {{transaction.emetteur.nom}}</td>
                       <td>{{transaction.devise_origine.pay.nom}} ({{transaction.devise_origine.symbole}})</td>
                       <td>{{transaction.frais}}</td>
                       <td>{{transaction.montant}}</td>
                       <td>{{transaction.recepteur.prenom}} {{transaction.recepteur.nom}}</td>
                       <td>{{transaction.devise_destination.pay.nom}} ({{transaction.devise_destination.symbole}})</td>
+                      <td>
+                        <span *ngIf="transaction.statut=='Paid'" class="badge text-bg-success">Paid</span>
+                        <span *ngIf="transaction.statut=='Cancelled'" class="badge text-bg-danger">Cancelled</span>
+                      </td>
                     </tr>
                   </ng-container>
                   </tbody>

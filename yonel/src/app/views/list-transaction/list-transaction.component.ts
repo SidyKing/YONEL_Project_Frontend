@@ -5,6 +5,7 @@ import "datatables.net-dt";
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-transaction',
@@ -45,10 +46,28 @@ export class ListTransactionComponent implements OnInit{
 }
 
 cancelled(id:any){
-  this.authService.CancelledStatut(id).subscribe(data => {
-    console.log(data);
-    this.refresh();
-  });
+  Swal.fire({
+    title: 'Etes-vous sûr d\'Annuler la Transaction ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#63b521',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Annuler',
+    confirmButtonText: 'Oui, Annuler !'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.authService.CancelledStatut(id).subscribe(data => {
+        console.log(data);
+        Swal.fire(
+          'Annuler!',
+          'Transaction annuler avec succès',
+          'success'
+        )
+        this.refresh();
+      });
+
+    }
+  })
 }
 
 }

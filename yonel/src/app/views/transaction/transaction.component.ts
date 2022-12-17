@@ -207,7 +207,9 @@ export class TransactionComponent implements OnInit {
     Swal.fire({
       icon: 'info',
       title: 'Traitement en cours!',
-      text: 'Dans 40 secondes la transaction sera payable!  Attention de ne pas l\'interrompre '
+      timer: 40000,
+      timerProgressBar: true,
+      text: 'Dans 40 secondes la transaction sera payable!'
     });
     Swal.showLoading();
   }

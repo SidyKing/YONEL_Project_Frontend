@@ -32,7 +32,6 @@ export class HomeComponent {
     this.authService.getSousAgences().subscribe(data => {
       this.totalSousAgence = data.length;
     });
-    this.balance=326400;
     this.authService.getUsers().subscribe(data => {
       this.AllUsers = data;
         setTimeout(() => {

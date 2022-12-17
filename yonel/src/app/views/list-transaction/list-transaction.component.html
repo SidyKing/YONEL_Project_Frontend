@@ -26,7 +26,7 @@
           <div class="row col-lg-20">
             <div class="card m-7 p-3">
               <div class="card-body">
-                <div align="center"><h5 class="card-title">LISTE DES TRANSACTIONS (en cour de validation)</h5> </div>
+                <div align="center"><h5 class="card-title">LISTE DE TOUTES LES TRANSACTIONS</h5> </div>
                 <table class="table table-bordered table-striped table-hover" id="list-transaction">
                   <thead>
                     <tr>
@@ -54,7 +54,7 @@
                             </a>
                           </ng-container>
                           <ng-container *ngIf="!(transaction.statut=='Paid'|| transaction.statut=='Cancelled')">
-                            <button (click)="cancelled(transaction.id)" class="btn btn-danger" >Cancelled</button>
+                            <button (click)="cancelled(transaction.id)" class="btn btn-danger" >Annuler</button>
                           </ng-container>
                         </td>
                     </tr>
