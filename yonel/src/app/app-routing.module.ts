@@ -17,7 +17,7 @@ import { TransactionComponent } from './views/transaction/transaction.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'Error',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {

@@ -17,6 +17,7 @@ export class AccueilComponent implements OnInit {
   AllTransaction: any;
   userId: any;
   agenceCode:any;
+  info: any;
 
   constructor(
     private formBulder: FormBuilder,
@@ -30,6 +31,8 @@ export class AccueilComponent implements OnInit {
     this.userId=sessionStorage.getItem('userId');
 
     this.authService.getUserById(this.userId).subscribe((data: any) => {
+      this.info= data;
+      console.log(data);
       this.agenceCode= data.sous_agence.agenceCode;
       this.authService.verifAgenceSurBalance(this.agenceCode).subscribe((resultat: any) => {
         this.balance=resultat.montant;
